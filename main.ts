@@ -49,6 +49,7 @@ function imSorry () {
     Im_sorry_3 = createScript("Pineapple", "do you have arizona iced tea ", 0)
     blockObject.setAnyProperty(Im_sorry_1, AnyProp.NextPage, Im_sorry_2)
     blockObject.setAnyProperty(Im_sorry_2, AnyProp.NextPage, Im_sorry_3)
+    blockObject.setAnyProperty(Im_sorry_3, AnyProp.NextPage, finalChoice())
     return Im_sorry_1
 }
 // microsoft/arcade-block-objects
@@ -110,12 +111,12 @@ function No_money_for_you () {
     return No_money_for_you_1
 }
 function finalChoice () {
-    FinalChoice1 = createScript("Old Man", "Well, I just need enough water for this garden here", 0)
-    FinalChoice2 = createScript("Cloud", "I can make that happen! What's the magic word?", 0)
+    FinalChoice1 = createScript("Mr. Kao ", "Well, I just need enough water for this garden here", 0)
+    FinalChoice2 = createScript("Pineapple", "I can make that happen! What's the magic word?", 0)
     blockObject.setAnyProperty(FinalChoice1, AnyProp.NextPage, FinalChoice2)
     blockObject.setStringArrayProperty(FinalChoice2, StrArrayProp.Choices, ["Please!", "Abracadabra!"])
     blockObject.setAnyProperty(FinalChoice2, AnyProp.Choice1, happyEnding())
-    blockObject.setAnyProperty(FinalChoice2, AnyProp.Choice2, 0)
+    blockObject.setAnyProperty(FinalChoice2, AnyProp.Choice2, sad_ending())
     return FinalChoice1
 }
 function updateChoices () {
@@ -160,6 +161,10 @@ function imAnOldMan () {
     blockObject.setAnyProperty(oldman2, AnyProp.Choice2, No_money_for_you())
     return oldman1
 }
+function sad_ending () {
+    sad_end = createScript("pineapple", "die!!!!", 2)
+    return sad_end
+}
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (choiceIndex == 0) {
         choiceIndex = 1
@@ -174,6 +179,7 @@ function createScript (characterName: string, text: string, portrait: number) {
     return newScript
 }
 let newScript: blockObject.BlockObject = null
+let sad_end: blockObject.BlockObject = null
 let oldman2: blockObject.BlockObject = null
 let oldman1: blockObject.BlockObject = null
 let printingStuff = false
